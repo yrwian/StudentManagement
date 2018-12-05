@@ -1,0 +1,103 @@
+# 用来保存学生信息
+nameList = []
+
+
+def adds():
+    # 1.1 提示用户输入学生信息并获取
+    name = input('请输入姓名：')
+    ager = input('请输入年龄：')
+    phone = input('请输入电话号码：')
+    tempInfo = {}
+    tempInfo['name'] = name
+    tempInfo['ager'] = ager
+    tempInfo['phone'] = phone
+
+    findFlag = 0  # 0表示没有找到 1表示找到了
+    # 通过循环的方式，来依次进行判断，如果有相同的名字，那么就让findFlag这个变量值为1
+    # 否则，就不修改它的值
+    for tempInfo in nameList:
+        if tempInfo['name'] == name:
+            findFlag = 1
+            break
+
+    if findFlag == 0:
+        # 1.2 添加到系统中
+        nameList.append(tempInfo)
+
+    # 1.3 先提示当前所有的信息
+    i = 0
+    for info in nameList:
+        print('%d %s %s %s' % (i, info['name'], info['sger'], info['phone']))
+        i += 1
+
+
+def dels():
+    if len(nameList) == 0:
+        print('*' * 10)
+        print('很抱歉，当前系统中，没有任何学生信息')
+        print('*' * 10)
+    else:
+        # 2.1 先提示当前所有的信息
+        i = 0
+        for info in nameList:
+            print('%d %s %s %s' % (i, info['name'], info['sger'], info['phone']))
+            i += 1
+        # 2.2 让用户选择要删除的信息
+        delNum = int(input('请输入要删除的学生序号（数字）：'))
+        confirm = input('亲，really(yes/no)')
+        confirm = confirm.lower()
+        if confirm == 'yes':
+            # 删除
+            if delNum < len(nameList) and delNum >= 0:
+                del nameList[delNum]
+
+
+def modify():
+    i = 0
+    for info in nameList:
+        print('%d %s %s %s' % (i, info['name'], info['sger'], info['phone']))
+        i += 1
+    # 输入要修改的学生序号
+    modifyNum = int(input('请输入要修改的学生序号（数字）:'))
+    # 输入新的姓名
+    # 3.1 提示用户输入学生的信息并获取
+    name = input('请输入新的姓名：')
+    ager = input('请输入新的年龄：')
+    phone = input('请输入新的电话号码：')
+    # 3.2 把学生的信息进行组装
+    tempInfo = {}
+    tempInfo['name'] = name
+    tempInfo['ager'] = ager
+    tempInfo['phone'] = phone
+    # 3.3 添加到系统中
+    nameList[modifyNum] = tempInfo
+
+
+def raw():
+    name = input('请输入要查询的姓名：')
+    for info in nameList:
+        if info['name'] == name:
+            print('****恭喜您找到了****')
+        else:
+            print('****sorry,this name not here****')
+
+
+while True:
+    # 1. 显示功能让用户进行操作
+    print('1.增加新同学\n2.删除离开的同学\n3.修改同学信息\n4.查找某个同学\n5.exit')
+    # 2. 获取用户选择的功能
+    opNum = int(input('请输入功能序号（数字）：'))
+    # 3. 根据用户选择的不同输出不同的结果
+    if opNum == 1:
+        adds()
+    elif opNum == 2:
+        dels()
+    elif opNum == 3:
+        modify()
+    elif opNum == 4:
+        raw()
+    elif opNum == 5:
+        confirm = input('亲，你确定要退出系统么？....(yes/no)....')
+        confirm = confirm.lower()
+        if confirm == 'yes':
+            break
